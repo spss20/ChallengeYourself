@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Challenge Yourself</string>
+    <string name="hours_text"><b>11</b>\nhours</string>
+    <string name="widget_description">Challenge Widget</string>
+    <string name="day_format">Day %d</string>
+    <string name="challenge_title_placeholder">Take a Challenge?</string>
+</resources>
