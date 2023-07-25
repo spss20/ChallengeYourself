@@ -1,0 +1,2 @@
+-injars /Users/ssoftwares/AndroidProjects/DayTracker/app/build/intermediates/javac/release/classes
+-outjars /Users/ssoftwares/AndroidProjects/DayTracker/obs
