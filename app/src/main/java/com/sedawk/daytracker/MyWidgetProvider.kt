@@ -6,9 +6,11 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import android.widget.RemoteViews
-import java.util.*
+import java.util.Calendar
+
 
 class MyWidgetProvider : AppWidgetProvider() {
 
@@ -40,7 +42,7 @@ class MyWidgetProvider : AppWidgetProvider() {
         appWidgetManager: AppWidgetManager?,
         appWidgetIds: IntArray?
     ) {
-        Log.v("DayTracker" , "On Update Called");
+        Log.v(TAG , "On Update Called");
         for (appWidgetId in appWidgetIds!!) {
             val intent = Intent(context, MainActivity::class.java)
 
@@ -86,10 +88,15 @@ class MyWidgetProvider : AppWidgetProvider() {
         return midnight.timeInMillis
     }
 
-    override fun onReceive(context: Context?, intent: Intent?) {
-        super.onReceive(context, intent)
+    override fun onAppWidgetOptionsChanged(
+        context: Context?,
+        appWidgetManager: AppWidgetManager?,
+        appWidgetId: Int,
+        newOptions: Bundle?
+    ) {
+        // Call onUpdate to handle widget resizing
+        onUpdate(context, appWidgetManager, intArrayOf(appWidgetId))
     }
-
     companion object {
         private const val TAG = "MyWidgetProvider"
     }
