@@ -44,8 +44,7 @@ class MyWidgetProvider : AppWidgetProvider() {
         for (appWidgetId in appWidgetIds!!) {
             val intent = Intent(context, MainActivity::class.java)
 
-            val pendingIntent =
-                PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+            val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
             val views = RemoteViews(context!!.packageName, R.layout.widget_layout)
             views.setTextViewText(R.id.widget_text, getTime(context))
             views.setOnClickPendingIntent(R.id.widget_layout, pendingIntent)
