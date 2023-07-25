@@ -4,4 +4,6 @@
     <string name="widget_description">Challenge Widget</string>
     <string name="day_format">Day %d</string>
     <string name="challenge_title_placeholder">Take a Challenge?</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
