@@ -1,4 +1,4 @@
-package com.sedawk.daytracker
+package com.sedawk.daytracker2
 
 import android.appwidget.AppWidgetManager
 import android.content.BroadcastReceiver

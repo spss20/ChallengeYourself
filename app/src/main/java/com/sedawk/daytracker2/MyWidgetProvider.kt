@@ -1,4 +1,4 @@
-package com.sedawk.daytracker
+package com.sedawk.daytracker2
 
 import android.app.AlarmManager
 import android.app.PendingIntent

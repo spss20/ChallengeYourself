@@ -34,26 +34,25 @@
     <FrameLayout
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:background="@drawable/counter_ly_2"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:background="@drawable/counter_ly_2">
 
         <include
             android:id="@+id/counter_ly"
             layout="@layout/counter_ly"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/start_btn"
             android:layout_width="140dp"
             android:layout_height="140dp"
-            android:text="Start"
-            android:visibility="gone"
-            android:textSize="27sp"
-            android:textColor="@color/white"
-            android:background="@drawable/start_button"
-            app:backgroundTint="@color/button_background"
             android:layout_gravity="center"
-            />
+            android:background="@drawable/start_button"
+            android:text="Start"
+            android:textColor="@color/white"
+            android:textSize="27sp"
+            android:visibility="visible"
+            app:backgroundTint="@color/button_background" />
     </FrameLayout>
 
 
