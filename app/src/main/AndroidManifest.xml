@@ -9,7 +9,7 @@
         android:theme="@style/Theme.DayTracker">
 
         <activity
-            android:name=".MainActivityNew"
+            android:name=".ui.MainActivityNew"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>

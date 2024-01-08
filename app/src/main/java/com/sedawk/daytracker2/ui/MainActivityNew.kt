@@ -1,4 +1,4 @@
-package com.sedawk.daytracker2
+package com.sedawk.daytracker2.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -16,10 +16,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,10 +36,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.sedawk.daytracker2.R
+import com.sedawk.daytracker2.SessionManager
 import com.sedawk.daytracker2.ui.theme.DayTrackerTheme
 
 class MainActivityNew : ComponentActivity() {
@@ -42,8 +52,16 @@ class MainActivityNew : ComponentActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
+            val sessionManager = SessionManager(this);
+            val appViewModel: AppViewModel =
+                viewModel(factory = object : ViewModelProvider.Factory {
+                    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                        return AppViewModel(sessionManager) as T;
+                    }
+                })
+
             DayTrackerTheme {
-                Homepage(Modifier.fillMaxSize())
+                Homepage(Modifier.fillMaxSize(), appViewModel)
             }
         }
 
@@ -53,8 +71,13 @@ class MainActivityNew : ComponentActivity() {
 //        )
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun Homepage(modifier: Modifier = Modifier) {
+    fun Homepage(modifier: Modifier = Modifier, appViewModel: AppViewModel) {
+        val state = appViewModel.uiState.collectAsState().value;
+        var challengeName by remember {
+            mutableStateOf("")
+        }
         Box(modifier = modifier) {
             Image(
                 painter = painterResource(id = R.drawable.background_1),
@@ -64,14 +87,14 @@ class MainActivityNew : ComponentActivity() {
             Surface(modifier = modifier.fillMaxSize(), color = Color(0x33000000)) {
             }
             Text(
-                text = stringResource(id = R.string.challenge_title_placeholder),
+                text = state.challengeName ?: "Krishna",
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier
                     .padding(top = 100.dp, start = 30.dp)
                     .widthIn(max = 200.dp)
             )
 
-            DateView(modifier = Modifier.align(Alignment.Center))
+            DateView(modifier = Modifier.align(Alignment.Center), appViewModel)
 
             Box(
                 modifier = Modifier
@@ -86,14 +109,32 @@ class MainActivityNew : ComponentActivity() {
                         .clickable { println("Image Clicked") })
             }
 
+            if (state.isStartClicked) {
+                AlertDialog(
+                    onDismissRequest = { appViewModel.changeStartClicked(false) },
+                    modifier = Modifier
+                        .clip(
+                            RoundedCornerShape(16.dp)
+                        )
+                        .background(MaterialTheme.colorScheme.primaryContainer)
+                        .padding(20.dp)
+
+                ) {
+                    Column {
+                        Text(
+                            text = "Enter Challenge Name",
+                            color = MaterialTheme.colorScheme.primary,
+                            fontSize = 12.sp
+                        )
+                        TextField(value = challengeName, onValueChange = { challengeName = it })
+                    }
+                }
+            }
         }
     }
 
     @Composable
-    fun DateView(modifier: Modifier = Modifier) {
-        var isStartClicked by remember {
-            mutableStateOf(false)
-        }
+    fun DateView(modifier: Modifier = Modifier, appViewModel: AppViewModel) {
         Box(
             modifier = modifier
                 .size(300.dp)
@@ -104,19 +145,20 @@ class MainActivityNew : ComponentActivity() {
             contentAlignment = Alignment.Center
         ) {
 //            TimerView()
-            if(isStartClicked){
-
-            }
-            StartView(Modifier.size(140.dp)) { isStartClicked = !isStartClicked }
+            StartView(
+                Modifier
+                    .size(140.dp)
+                    .clickable { appViewModel.changeStartClicked(true) })
         }
     }
 
     @Composable
-    fun StartView(modifier: Modifier = Modifier, onStartClick: ()->Unit) {
-        Box(modifier = modifier
-            .clip(CircleShape)
-            .background(MaterialTheme.colorScheme.primary)
-            .clickable { onStartClick() }) {
+    fun StartView(modifier: Modifier = Modifier) {
+        Box(
+            modifier = modifier
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.primary)
+        ) {
             Text(
                 text = "START",
                 style = MaterialTheme.typography.titleMedium,
@@ -154,8 +196,17 @@ class MainActivityNew : ComponentActivity() {
     @Preview
     @Composable
     fun Main() {
+        val state = AppViewModel.ChallengeUiState(
+            challengeName = "Surya Pratap Singh",
+            timestamp = 1704630853535L,
+            isStartClicked = true,
+            isSettingClicked = false
+        )
+        val appViewModel: AppViewModel = viewModel();
+        appViewModel.setUiStateForPreview { state }
+
         DayTrackerTheme {
-            Homepage(Modifier.fillMaxSize())
+            Homepage(Modifier.fillMaxSize(), appViewModel = appViewModel)
         }
     }
 }
