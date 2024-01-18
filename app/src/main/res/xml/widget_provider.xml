@@ -7,8 +7,7 @@
     android:maxResizeHeight="240dp"
     android:updatePeriodMillis="86400000"
     android:description="@string/widget_description"
-    android:previewLayout="@layout/example_appwidget_preview"
-    android:initialLayout="@layout/widget_layout"
+    android:initialLayout="@layout/glance_default_loading_layout"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen"
     >

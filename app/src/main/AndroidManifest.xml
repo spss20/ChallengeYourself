@@ -20,7 +20,7 @@
         </activity>
 
         <receiver
-            android:name=".MyWidgetProvider"
+            android:name=".TrackerWidgetReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

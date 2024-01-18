@@ -7,14 +7,14 @@ android {
     namespace 'com.sedawk.daytracker2'
     compileSdk 34
 
-    signingConfigs {
-        release {
-            storeFile file('D:\\Keys\\SikarwarSoftwares.jks')
-            storePassword 'Tr1@ngle@123'
-            keyAlias 'key0'
-            keyPassword 'Tr1@ngle@123'
-        }
-    }
+//    signingConfigs {
+//        release {
+//            storeFile file('D:\\Keys\\SikarwarSoftwares.jks')
+//            storePassword 'Tr1@ngle@123'
+//            keyAlias 'key0'
+//            keyPassword 'Tr1@ngle@123'
+//        }
+//    }
 
     defaultConfig {
         applicationId "com.sedawk.daytracker2"
@@ -24,7 +24,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        signingConfig signingConfigs.release
+//        signingConfig signingConfigs.release
     }
 
     buildTypes {
@@ -80,6 +80,9 @@ dependencies {
 
     //Activity
     implementation("androidx.activity:activity-compose:1.8.2")
+
+    //Widget
+    implementation "androidx.glance:glance-appwidget:1.0.0"
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'

@@ -17,7 +17,6 @@ val Typography = Typography(
         fontSize = 18.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp,
-        color = mainColor
     ),
     bodyMedium = TextStyle(
         fontFamily = FontFamily(Font(R.font.nunito)),
@@ -25,7 +24,6 @@ val Typography = Typography(
         fontSize = 18.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp,
-        color = mainColor
     ),
     titleLarge = TextStyle(
         fontFamily = FontFamily(Font(R.font.nunito_extrabold)),
@@ -33,25 +31,22 @@ val Typography = Typography(
         fontSize = 30.sp,
         lineHeight = 28.sp,
         letterSpacing = 0.5.sp,
-        color = mainColor
     ),
     titleMedium = TextStyle(
         fontFamily = FontFamily(Font(R.font.nunito_bold)),
         fontSize = 27.sp,
         letterSpacing = 0.5.sp,
-
         ),
     labelSmall = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Medium,
         fontSize = 11.sp,
         lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
+        letterSpacing = 0.5.sp,
     ),
     displayLarge = TextStyle.Default.copy(
         fontFamily = FontFamily(Font(R.font.nunito_bold)),
         fontSize = 40.sp,
-        color = mainColor
     ),
 
 )
