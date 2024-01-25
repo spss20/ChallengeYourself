@@ -2,15 +2,17 @@ package com.sedawk.daytracker2.ui
 
 import androidx.lifecycle.ViewModel
 import com.sedawk.daytracker2.SessionManager
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import java.time.LocalDate
 import java.util.Calendar
-import java.util.Date
+import javax.inject.Inject
 
-class AppViewModel(private val sessionManager: SessionManager? = null) : ViewModel() {
+@HiltViewModel
+class AppViewModel @Inject constructor(private val sessionManager: SessionManager) : ViewModel() {
+
     data class ChallengeUiState(
         var challengeName: String? = null,
         var timestamp: Long? = null,

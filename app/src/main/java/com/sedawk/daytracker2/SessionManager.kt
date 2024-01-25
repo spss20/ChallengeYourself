@@ -2,14 +2,17 @@ package com.sedawk.daytracker2
 
 import android.content.Context
 import android.content.SharedPreferences
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class SessionManager(context: Context) {
+class SessionManager @Inject constructor (@ApplicationContext context: Context) {
     private val prefs: SharedPreferences;
     private val editor: SharedPreferences.Editor;
 
     init {
         prefs = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         editor = prefs.edit();
+        println("Session Manager Initialized")
     }
 
     var name: String?

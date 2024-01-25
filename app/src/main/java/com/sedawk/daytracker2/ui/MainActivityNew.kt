@@ -3,6 +3,7 @@ package com.sedawk.daytracker2.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -50,27 +51,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sedawk.daytracker2.R
-import com.sedawk.daytracker2.SessionManager
 import com.sedawk.daytracker2.ui.theme.DayTrackerTheme
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 
+@AndroidEntryPoint
 class MainActivityNew : ComponentActivity() {
+
+    private val appViewModel by viewModels<AppViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            val sessionManager = SessionManager(this);
-            val appViewModel: AppViewModel =
-                viewModel(factory = object : ViewModelProvider.Factory {
-                    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                        return AppViewModel(sessionManager) as T;
-                    }
-                })
-
             DayTrackerTheme {
                 Surface {
                     Homepage(Modifier.fillMaxSize(), appViewModel)
@@ -302,7 +297,7 @@ class MainActivityNew : ComponentActivity() {
 
     @Composable
     fun TimerView(timerPair: List<Pair<String, String>>, modifier: Modifier = Modifier) {
-        println("Recomposition TimerView")
+//        println("Recomposition TimerView")
         Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 "${timerPair[0].second} ${timerPair[0].first}",
